@@ -156,6 +156,7 @@ module Datapath #(
       B.func7 <= 0;
       B.Curr_Instr <= A.Curr_Instr;  //debug tmp
       B.RWSel <= 0;
+      B.jalrsel <= 0
     end else begin
       B.ALUSrc <= ALUsrc;
       B.MemtoReg <= MemtoReg;
@@ -174,6 +175,8 @@ module Datapath #(
       B.func3 <= A.Curr_Instr[14:12];
       B.func7 <= A.Curr_Instr[31:25];
       B.Curr_Instr <= A.Curr_Instr;  //debug tmp
+      B.RWSel <= RWSel;
+      B.jalrsel <= jalrsel;
     end
   end
 
@@ -231,6 +234,7 @@ module Datapath #(
       Old_PC_Four,
       BrPC,
       PcSel
+      B.jalrsel,
   );
 
   // EX_MEM_Reg C;
@@ -250,6 +254,7 @@ module Datapath #(
       C.func3 <= 0;
       C.func7 <= 0;
       C.RWSel <= 0;
+      C.jalrsel <= 0;
     end else begin
       C.RegWrite <= B.RegWrite;
       C.MemtoReg <= B.MemtoReg;
@@ -265,6 +270,7 @@ module Datapath #(
       C.func7 <= B.func7;
       C.Curr_Instr <= B.Curr_Instr;  // debug tmp
       C.RWSel <= B.RWSel;
+      C.jalrsel <= B.jalrsel;
     end
   end
 
@@ -298,6 +304,7 @@ module Datapath #(
       D.MemReadData <= 0;
       D.rd <= 0;
       D.RWSel <= 0;
+      D.jalrsel <= 0;
     end else begin
       D.RegWrite <= C.RegWrite;
       D.MemtoReg <= C.MemtoReg;
@@ -308,7 +315,8 @@ module Datapath #(
       D.MemReadData <= ReadData;
       D.rd <= C.rd;
       D.Curr_Instr <= C.Curr_Instr;  //Debug Tmp
-       D.RWSel <= C.RWSel;
+      D.RWSel <= C.RWSel;
+      D.jalrsel <= C.jalrsel;
     end
   end
 
